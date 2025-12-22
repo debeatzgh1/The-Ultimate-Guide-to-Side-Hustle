@@ -252,9 +252,9 @@ document.addEventListener("DOMContentLoaded", function () {
       url: "https://digimartgh.blogspot.com/"
     },
     {
-      text: "💡 Ideas",
+      text: "💡Kit",
       bg: "#c026d3",
-      url: "https://msha.ke/debeatzgh"
+      url: "https://debeatzgh1.github.io/Side-hustle-starter-kit-/"
     }
   ];
 
