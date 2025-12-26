@@ -25,8 +25,8 @@
     z-index: 9999;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 115%;
+    width: 105%;
+    height: 120%;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(4px);
   }
@@ -44,8 +44,8 @@
   }
 
   #modal-iframe {
-    width: 100%;
-    height: 105%;
+    width: 105%;
+    height: 115%;
     border: none;
   }
 
