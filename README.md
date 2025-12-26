@@ -3,224 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Content Hub</title>
-
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+<title>Side Hustle Floating Hub</title>
 
 <style>
-.carousel-container{
-  display:flex;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  gap:20px;
-  padding:20px;
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#f3f4f6;
 }
-.carousel-card{
-  min-width:340px;
-  background:#fff;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
-  scroll-snap-align:center;
-  overflow:hidden;
-  position:relative;
-  transition:.3s;
-}
-.carousel-card:hover{transform:translateY(-6px)}
 
-.badge{
-  position:absolute;
-  top:12px;left:12px;
-  padding:4px 12px;
-  font-size:11px;
-  font-weight:700;
-  border-radius:999px;
+/* ================= FLOATING LAUNCHER ================= */
+#fab-launcher{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#2563eb;
   color:#fff;
+  font-size:26px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  z-index:9999;
+  box-shadow:0 10px 28px rgba(0,0,0,.3);
 }
-.badge-featured{background:#2563eb}
-.badge-popular{background:#16a34a}
 
+/* ================= MODAL ================= */
 .modal-bg{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.7);
+  background:rgba(0,0,0,.75);
   backdrop-filter:blur(6px);
   justify-content:center;
   align-items:center;
-  z-index:9999;
+  z-index:9998;
 }
+
 .modal-box{
-  width:94%;
+  width:95%;
   height:92%;
   background:#fff;
   border-radius:18px;
   overflow:hidden;
   position:relative;
 }
-iframe{width:100%;height:100%;border:none}
 
+/* ================= CONTROLS ================= */
 .modal-controls{
   position:absolute;
-  top:10px;left:10px;
+  top:10px;
+  left:10px;
   display:flex;
   gap:8px;
   z-index:10;
 }
+
 .ctrl-btn{
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.85);
   color:#fff;
-  padding:6px 10px;
-  border-radius:8px;
+  padding:6px 12px;
+  border-radius:10px;
   font-size:12px;
   font-weight:700;
   cursor:pointer;
 }
 
-/* Floating Milkshake Button */
-.floating-btn{
-  position:fixed;
-  bottom:18px;
-  right:18px;
-  background:#f97316;
-  color:#fff;
-  padding:12px 18px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,.25);
-  cursor:pointer;
-  z-index:99999;
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
 }
 </style>
 </head>
 
-<body class="bg-gray-100">
+<body>
 
-<header class="text-center py-10">
-  <h1 class="text-3xl font-bold">AI & Knowledge Hub</h1>
-  <p class="text-gray-600 mt-2 max-w-xl mx-auto">
-    Explore AI insights, tutorials, and creator resources in a focused,
-    distraction-free reading experience.
-  </p>
-</header>
+<!-- FLOATING LAUNCHER -->
+<button id="fab-launcher" title="Open Side Hustle Hub">🚀</button>
 
-<!-- CONTENT CARDS -->
-<div class="carousel-container">
-
-  <!-- WORDPRESS -->
-  <div class="carousel-card">
-    <span class="badge badge-featured">Featured</span>
-    <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/07/chatgptimagejul82c20252c11_19_45pm7206537633247500208.jpg"
-         class="w-full h-44 object-cover">
-    <div class="p-6">
-      <h3 class="text-xl font-bold mb-2">Build With AI (WordPress)</h3>
-      <p class="text-sm text-gray-600 mb-4">
-        Deep-dive AI articles, real-world use cases, and step-by-step learning
-        resources.
-      </p>
-      <button onclick="openPreview('https://debeatzgh.wordpress.com/begin-a-side-hustle/)"
-        class="w-full px-4 py-3 rounded-xl text-white font-bold bg-blue-600">
-        Open Articles
-      </button>
-    </div>
-  </div>
-
-  <!-- BLOGGER -->
-  <div class="carousel-card">
-    <span class="badge badge-popular">Popular</span>
-    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995"
-         class="w-full h-44 object-cover">
-    <div class="p-6">
-      <h3 class="text-xl font-bold mb-2">AI Knowledge Blog (Blogger)</h3>
-      <p class="text-sm text-gray-600 mb-4">
-        Beginner-friendly explanations, decoding AI concepts for creators,
-        students, and entrepreneurs.
-      </p>
-      <button onclick="openPreview('https://debeatzgh2.blogspot.com/')"
-        class="w-full px-4 py-3 rounded-xl text-white font-bold bg-emerald-600">
-        Read Blog
-      </button>
-    </div>
-  </div>
-
-</div>
-
-<!-- PREVIEW MODAL -->
+<!-- MODAL -->
 <div class="modal-bg" id="previewModal">
   <div class="modal-box" id="previewBox">
     <div class="modal-controls">
-      <div class="ctrl-btn" id="nextBtn" style="display:none;" onclick="openNext()">
-        ➜ Next
-      </div>
-      <div class="ctrl-btn" onclick="toggleFS('previewBox')">⛶ Fullscreen</div>
+      <div class="ctrl-btn" id="nextBtn" style="display:none;" onclick="openNext()">➜ Next</div>
+      <div class="ctrl-btn" onclick="toggleFS()">⛶ Fullscreen</div>
       <div class="ctrl-btn" onclick="closePreview()">✕ Close</div>
     </div>
     <iframe id="previewFrame"></iframe>
   </div>
 </div>
 
-<!-- FLOATING MILKSHAKE -->
-<div class="floating-btn" onclick="openPreview('https://msha.ke/debeatzgh')">
-  🌐 My Links
-</div>
-
 <script>
-const previewModal=document.getElementById("previewModal");
-const previewFrame=document.getElementById("previewFrame");
-const nextBtn=document.getElementById("nextBtn");
+const launcher = document.getElementById("fab-launcher");
+const modal = document.getElementById("previewModal");
+const frame = document.getElementById("previewFrame");
+const nextBtn = document.getElementById("nextBtn");
 
-// Store current modal URL
-let currentURL='';
+/* FIRST PAGE */
+const FIRST_URL = "https://debeatzgh.wordpress.com/begin-a-side-hustle/";
+const NEXT_URL  = "https://digimartgh.blogspot.com/";
 
-// Open preview function
-function openPreview(url, showNext=false){
-  previewFrame.src=url;
-  previewModal.style.display="flex";
-  currentURL=url;
-  nextBtn.style.display=showNext ? 'block' : 'none';
+/* OPEN FIRST */
+function openFirst(){
+  frame.src = FIRST_URL;
+  modal.style.display = "flex";
+  nextBtn.style.display = "block"; // auto show
 }
 
-// Close preview
-function closePreview(){
-  previewModal.style.display="none";
-  previewFrame.src="";
-  if(document.fullscreenElement){document.exitFullscreen();}
-}
-
-// Fullscreen toggle
-function toggleFS(id){
-  const el=document.getElementById(id);
-  if(!document.fullscreenElement){el.requestFullscreen();}
-  else{document.exitFullscreen();}
-}
-
-// Next button logic
+/* NEXT */
 function openNext(){
-  if(currentURL.includes('wordpress.com')){
-    openPreview(https://digimartgh.blogspot.com/');
+  frame.src = NEXT_URL;
+}
+
+/* CLOSE */
+function closePreview(){
+  modal.style.display = "none";
+  frame.src = "";
+  if(document.fullscreenElement){
+    document.exitFullscreen();
   }
 }
 
-/* Optional: External links open in new tab */
-previewFrame.addEventListener("load", ()=>{
-  try{
-    const doc=previewFrame.contentDocument;
-    const links=doc.querySelectorAll("a[href]");
-    links.forEach(a=>{
-      const href=a.href;
-      if(!href.includes("debeatzgh.wordpress.com") &&
-         !href.includes(“digimartgh.blogspot.com/") &&
-         !href.includes("msha.ke")){
-        a.setAttribute("target","_blank");
-        a.setAttribute("rel","noopener");
-      }
-    });
-  }catch(e){
-    console.warn("Cross-domain content: external links may not be detected");
+/* FULLSCREEN */
+function toggleFS(){
+  const box = document.getElementById("previewBox");
+  if(!document.fullscreenElement){
+    box.requestFullscreen();
+  }else{
+    document.exitFullscreen();
   }
+}
+
+/* LAUNCHER CLICK */
+launcher.addEventListener("click", openFirst);
+
+/* CLICK OUTSIDE CLOSE */
+modal.addEventListener("click", e=>{
+  if(e.target === modal) closePreview();
 });
 </script>
 
 </body>
 </html>
-
