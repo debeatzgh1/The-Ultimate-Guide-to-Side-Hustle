@@ -141,8 +141,8 @@ const tabs = document.querySelectorAll(".tab");
 
 /* ===== URL MAP ===== */
 const URLS = {
-  wordpress: "https://debeatzgh.wordpress.com/build-with-ai-2/",
-  blogger: "https://debeatzgh2.blogspot.com/",
+  wordpress: "https://debeatzgh.wordpress.com/begin-a-side-hustle/",
+  blogger: "https://digimartgh.blogspot.com/p/sign-in-for-more_19.html",
   signin: "https://docs.google.com/forms/d/e/1FAIpQLSdXCPUz1JBq0W8MHN9VOE0p6cnp5Wtr74Ox2gqLLyzKi0UwKA/viewform",
   about: "https://form.jotform.com/241335470278053"
 };
