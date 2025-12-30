@@ -1,149 +1,213 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Side Hustle Floating Hub</title>
+<title>Debeatzgh Multi-Tab Launcher</title>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#f3f4f6;
-}
-
-/* ================= FLOATING LAUNCHER ================= */
-#fab-launcher{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  background:#2563eb;
-  color:#fff;
-  font-size:26px;
-  font-weight:700;
-  border:none;
-  cursor:pointer;
-  z-index:9999;
-  box-shadow:0 10px 28px rgba(0,0,0,.3);
-}
-
-/* ================= MODAL ================= */
+/* ===== MODAL ===== */
 .modal-bg{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.7);
   backdrop-filter:blur(6px);
-  justify-content:center;
-  align-items:center;
-  z-index:9998;
+  z-index:9999;
 }
-
 .modal-box{
-  width:95%;
-  height:92%;
+  width:96%;
+  height:94%;
   background:#fff;
   border-radius:18px;
   overflow:hidden;
-  position:relative;
+  display:flex;
+  flex-direction:column;
 }
 
-/* ================= CONTROLS ================= */
-.modal-controls{
-  position:absolute;
-  top:10px;
-  left:10px;
+/* ===== TABS ===== */
+.tabs{
+  display:flex;
+  gap:6px;
+  padding:10px;
+  background:#0f172a;
+}
+.tab{
+  padding:8px 14px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:700;
+  color:#cbd5f5;
+  cursor:pointer;
+}
+.tab.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+/* ===== CONTROLS ===== */
+.controls{
   display:flex;
   gap:8px;
-  z-index:10;
+  padding:8px 10px;
+  background:#020617;
 }
-
 .ctrl-btn{
-  background:rgba(0,0,0,.85);
+  background:rgba(255,255,255,.15);
   color:#fff;
   padding:6px 12px;
-  border-radius:10px;
+  border-radius:8px;
   font-size:12px;
   font-weight:700;
   cursor:pointer;
 }
 
+/* ===== IFRAME ===== */
 iframe{
+  flex:1;
   width:100%;
-  height:100%;
   border:none;
 }
 </style>
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-<!-- FLOATING LAUNCHER -->
-<button id="fab-launcher" title="Open Side Hustle Hub">🚀</button>
+<header class="text-center py-10">
+  <h1 class="text-3xl font-bold">AI & Knowledge Hub</h1>
+  <p class="text-gray-600 mt-2 max-w-xl mx-auto">
+    Access WordPress, Blogger, and Forms in one focused workspace.
+  </p>
+</header>
+
+<!-- LAUNCHER CARDS -->
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-6">
+
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="text-xl font-bold mb-2">Build With AI</h3>
+    <p class="text-sm text-gray-600 mb-4">
+      WordPress AI deep-dives & guides
+    </p>
+    <button onclick="openLauncher('wordpress')"
+      class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">
+      Open WordPress
+    </button>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="text-xl font-bold mb-2">AI Knowledge Blog</h3>
+    <p class="text-sm text-gray-600 mb-4">
+      Beginner-friendly Blogger content
+    </p>
+    <button onclick="openLauncher('blogger')"
+      class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold">
+      Open Blogger
+    </button>
+  </div>
+
+</div>
 
 <!-- MODAL -->
-<div class="modal-bg" id="previewModal">
-  <div class="modal-box" id="previewBox">
-    <div class="modal-controls">
-      <div class="ctrl-btn" id="nextBtn" style="display:none;" onclick="openNext()">➜ Next</div>
-      <div class="ctrl-btn" onclick="toggleFS()">⛶ Fullscreen</div>
-      <div class="ctrl-btn" onclick="closePreview()">✕ Close</div>
+<div class="modal-bg" id="modal">
+  <div class="modal-box" id="modalBox">
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" data-tab="wordpress">WordPress</div>
+      <div class="tab" data-tab="blogger">Blogger</div>
+      <div class="tab" data-tab="signin">Sign In</div>
+      <div class="tab" data-tab="about">About</div>
     </div>
-    <iframe id="previewFrame"></iframe>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="ctrl-btn" onclick="goBack()">⟵ Back</div>
+      <div class="ctrl-btn" onclick="goForward()">⟶ Forward</div>
+      <div class="ctrl-btn" onclick="toggleFS()">⛶ Fullscreen</div>
+      <div class="ctrl-btn" onclick="closeLauncher()">✕ Close</div>
+    </div>
+
+    <!-- IFRAME -->
+    <iframe id="frame"></iframe>
+
   </div>
 </div>
 
 <script>
-const launcher = document.getElementById("fab-launcher");
-const modal = document.getElementById("previewModal");
-const frame = document.getElementById("previewFrame");
-const nextBtn = document.getElementById("nextBtn");
+const modal = document.getElementById("modal");
+const frame = document.getElementById("frame");
+const tabs = document.querySelectorAll(".tab");
 
-/* FIRST PAGE */
-const FIRST_URL = "https://debeatzgh.wordpress.com/begin-a-side-hustle/";
-const NEXT_URL  = "https://digimartgh.blogspot.com/";
+/* ===== URL MAP ===== */
+const URLS = {
+  wordpress: "https://debeatzgh.wordpress.com/build-with-ai-2/",
+  blogger: "https://debeatzgh2.blogspot.com/",
+  signin: "https://docs.google.com/forms/d/e/1FAIpQLSdXCPUz1JBq0W8MHN9VOE0p6cnp5Wtr74Ox2gqLLyzKi0UwKA/viewform",
+  about: "https://form.jotform.com/241335470278053"
+};
 
-/* OPEN FIRST */
-function openFirst(){
-  frame.src = FIRST_URL;
+/* ===== HISTORY ===== */
+let historyStack = [];
+let historyIndex = -1;
+
+function load(url){
+  frame.src = url;
+  if(historyStack[historyIndex] !== url){
+    historyStack = historyStack.slice(0, historyIndex + 1);
+    historyStack.push(url);
+    historyIndex++;
+  }
+}
+
+/* ===== OPEN LAUNCHER ===== */
+function openLauncher(tab){
   modal.style.display = "flex";
-  nextBtn.style.display = "block"; // auto show
+  switchTab(tab);
 }
 
-/* NEXT */
-function openNext(){
-  frame.src = NEXT_URL;
-}
-
-/* CLOSE */
-function closePreview(){
+/* ===== CLOSE ===== */
+function closeLauncher(){
   modal.style.display = "none";
   frame.src = "";
-  if(document.fullscreenElement){
-    document.exitFullscreen();
-  }
+  historyStack = [];
+  historyIndex = -1;
+  if(document.fullscreenElement) document.exitFullscreen();
 }
 
-/* FULLSCREEN */
-function toggleFS(){
-  const box = document.getElementById("previewBox");
-  if(!document.fullscreenElement){
-    box.requestFullscreen();
-  }else{
-    document.exitFullscreen();
-  }
-}
-
-/* LAUNCHER CLICK */
-launcher.addEventListener("click", openFirst);
-
-/* CLICK OUTSIDE CLOSE */
-modal.addEventListener("click", e=>{
-  if(e.target === modal) closePreview();
+/* ===== TAB SWITCHING ===== */
+tabs.forEach(tabEl => {
+  tabEl.addEventListener("click", () => {
+    switchTab(tabEl.dataset.tab);
+  });
 });
+
+function switchTab(tab){
+  tabs.forEach(t => t.classList.remove("active"));
+  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add("active");
+  load(URLS[tab]);
+}
+
+/* ===== NAVIGATION ===== */
+function goBack(){
+  if(historyIndex > 0){
+    historyIndex--;
+    frame.src = historyStack[historyIndex];
+  }
+}
+function goForward(){
+  if(historyIndex < historyStack.length - 1){
+    historyIndex++;
+    frame.src = historyStack[historyIndex];
+  }
+}
+
+/* ===== FULLSCREEN ===== */
+function toggleFS(){
+  const el = document.getElementById("modalBox");
+  if(!document.fullscreenElement) el.requestFullscreen();
+  else document.exitFullscreen();
+}
 </script>
 
 </body>
