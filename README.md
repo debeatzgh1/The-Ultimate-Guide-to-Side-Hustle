@@ -1,6 +1,164 @@
 
 <html lang="en">
 <head>
+    <style>
+        :root {
+            --nav-bg: rgba(13, 17, 23, 0.9);
+            --nav-border: #30363d;
+            --nav-accent: #58a6ff;
+            --nav-hover: #1f6feb;
+            --glow-color: rgba(88, 166, 255, 0.5);
+        }
+
+        /* Dock Container */
+        .nav-dock {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 10000;
+        }
+
+        /* Launcher (>) */
+        #nav-launcher {
+            width: 38px;
+            height: 38px;
+            background: var(--nav-bg);
+            border: 1px solid var(--nav-border);
+            color: var(--nav-accent);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        #nav-launcher.open {
+            color: white;
+            background: var(--nav-hover);
+            border-color: var(--nav-accent);
+        }
+
+        /* Button Group */
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .nav-group.active {
+            pointer-events: auto;
+        }
+
+        .nav-btn {
+            width: 34px;
+            height: 34px;
+            background: var(--nav-bg);
+            border: 1px solid var(--nav-border);
+            color: #c9d1d9;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.5) translateX(30px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            position: relative;
+        }
+
+        /* Active/Open State for Buttons */
+        .nav-group.active .nav-btn {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+        }
+
+        /* Heartbeat Glow Animation */
+        @keyframes heartbeatGlow {
+            0% { box-shadow: 0 0 0 0 var(--glow-color); transform: scale(1); }
+            50% { box-shadow: 0 0 15px 5px var(--glow-color); transform: scale(1.1); }
+            100% { box-shadow: 0 0 0 0 var(--glow-color); transform: scale(1); }
+        }
+
+        .heartbeat-active {
+            animation: heartbeatGlow 1.2s ease-in-out 2; /* Runs twice on open */
+        }
+
+        .nav-btn:hover {
+            background: var(--nav-hover);
+            color: white;
+            border-color: var(--nav-accent);
+        }
+
+        /* Staggered transition delays for a smooth "pop-in" effect */
+        .nav-group.active .nav-btn:nth-child(1) { transition-delay: 0.1s; }
+        .nav-group.active .nav-btn:nth-child(2) { transition-delay: 0.2s; }
+        .nav-group.active .nav-btn:nth-child(3) { transition-delay: 0.3s; }
+
+        .nav-btn svg { width: 18px; height: 18px; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-dock">
+        <button id="nav-launcher" onclick="toggleNav()">›</button>
+
+        <div class="nav-group" id="navGroup">
+            <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            </button>
+
+            <a href="https://debeatzgh1.github.io/Home-/" class="nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </a>
+
+            <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function toggleNav() {
+            const group = document.getElementById('navGroup');
+            const launcher = document.getElementById('nav-launcher');
+            const buttons = document.querySelectorAll('.nav-btn');
+            
+            const isOpen = group.classList.toggle('active');
+            launcher.classList.toggle('open');
+            launcher.innerText = isOpen ? '‹' : '›';
+
+            if (isOpen) {
+                // Trigger heartbeat animation on each button when opened
+                buttons.forEach((btn, index) => {
+                    // Slight delay before heartbeat starts to match the pop-in
+                    setTimeout(() => {
+                        btn.classList.add('heartbeat-active');
+                    }, (index + 1) * 200);
+
+                    // Remove class after animation ends so it can re-trigger next time
+                    setTimeout(() => {
+                        btn.classList.remove('heartbeat-active');
+                    }, 3000);
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
