@@ -1,5 +1,172 @@
 
 
+
+    <style>
+        :root {
+            --gh-bg: #0d1117;
+            --gh-border: #30363d;
+            --hustle-accent: #238636; /* GitHub Green */
+            --text-gray: #8b949e;
+        }
+
+        /* 1. Mini Banner Styling */
+        .mini-hustle-card {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 280px;
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+            animation: borderPulse 4s infinite;
+        }
+
+        @keyframes borderPulse {
+            0% { border-color: var(--gh-border); }
+            50% { border-color: var(--hustle-accent); box-shadow: 0 0 15px rgba(35, 134, 54, 0.3); }
+            100% { border-color: var(--gh-border); }
+        }
+
+        .mini-hustle-card:hover {
+            transform: translateY(-5px);
+            background: #161b22;
+        }
+
+        /* 2. Auto-Slide Text Content */
+        .slide-text {
+            display: none;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: white;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .slide-text.active { display: block; }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hustle-tag {
+            display: inline-block;
+            background: rgba(35, 134, 54, 0.15);
+            color: #3fb950;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        /* 3. Iframe Overlay (Modal) */
+        #iframe-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 90%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .iframe-container {
+            width: 70%;
+            max-width: 1000px;
+            height: 85vh;
+            background: white;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .close-iframe {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #f85149;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            z-index: 10001;
+            font-weight: bold;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+
+
+
+    <div class="mini-hustle-card" onclick="openHustleKit()">
+        <span class="hustle-tag">Side Hustle Center</span>
+        
+        <div class="slide-text active">
+            <strong>Aspiring Entrepreneur?</strong><br />
+            Find tools to launch a profitable side hustle today.
+        </div>
+        
+        <div class="slide-text">
+            <strong>Seasoned Marketer?</strong><br />
+            Everything you need to thrive in the digital economy.
+        </div>
+
+        <div class="slide-text">
+            <strong>One-Stop Solution</strong><br />
+            Access productivity ideas and startup tools in one place.
+        </div>
+
+        <p style="font-size: 0.75rem; color: var(--text-gray); margin-top: 10px; border-top: 1px solid #30363d; padding-top: 5px;">
+            Click to explore →
+        </p>
+    </div>
+
+    <div id="iframe-overlay">
+        <div class="iframe-container">
+            <button class="close-iframe" onclick="closeHustleKit(event)">CLOSE</button>
+            <iframe src="https://debeatzgh1.github.io/Side-hustle-starter-kit-/" title="Side Hustle Starter Kit"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Auto-Slide Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-text');
+        
+        function rotateSlides() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(rotateSlides, 4000); // Changes every 4 seconds
+
+        // Iframe Logic
+        function openHustleKit() {
+            document.getElementById('iframe-overlay').style.display = 'flex';
+        }
+
+        function closeHustleKit(event) {
+            event.stopPropagation();
+            document.getElementById('iframe-overlay').style.display = 'none';
+        }
+    </script>
+
+</!doctype>
+
 <style>
   /* 🌟 Fade Slide Animation */
   @keyframes fadeSlideUp {
