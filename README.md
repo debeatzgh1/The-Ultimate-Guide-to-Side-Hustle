@@ -1,48 +1,53 @@
-
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --gh-bg: #0d1117;
             --gh-border: #30363d;
-            --hustle-accent: #238636; /* GitHub Green */
+            --hustle-accent: #238636;
             --text-gray: #8b949e;
         }
 
-        /* 1. Mini Banner Styling */
+        /* 1. Slim Top Overlay Banner */
         .mini-hustle-card {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 280px;
+            top: 10px; /* Positioned at the top */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 450px; /* Narrower for a cleaner look */
             background: var(--gh-bg);
             border: 1px solid var(--gh-border);
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 8px; /* Slightly sharper professional corners */
+            padding: 10px 15px;
             cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
             z-index: 1000;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             animation: borderPulse 4s infinite;
         }
 
         @keyframes borderPulse {
             0% { border-color: var(--gh-border); }
-            50% { border-color: var(--hustle-accent); box-shadow: 0 0 15px rgba(35, 134, 54, 0.3); }
+            50% { border-color: var(--hustle-accent); box-shadow: 0 0 10px rgba(35, 134, 54, 0.2); }
             100% { border-color: var(--gh-border); }
         }
 
-        .mini-hustle-card:hover {
-            transform: translateY(-5px);
-            background: #161b22;
+        /* 2. Compact Auto-Slide Content */
+        .slide-container {
+            flex-grow: 1;
         }
 
-        /* 2. Auto-Slide Text Content */
         .slide-text {
             display: none;
-            font-size: 0.85rem;
-            line-height: 1.4;
+            font-size: 0.8rem; /* Smaller font for top overlay */
+            line-height: 1.2;
             color: white;
             animation: fadeSlide 0.5s ease;
         }
@@ -50,56 +55,58 @@
         .slide-text.active { display: block; }
 
         @keyframes fadeSlide {
-            from { opacity: 0; transform: translateX(10px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hustle-tag {
-            display: inline-block;
-            background: rgba(35, 134, 54, 0.15);
-            color: #3fb950;
-            font-size: 0.7rem;
+            background: var(--hustle-accent);
+            color: white;
+            font-size: 0.65rem;
             font-weight: bold;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-bottom: 8px;
+            padding: 2px 6px;
+            border-radius: 4px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        /* 3. Iframe Overlay (Modal) */
+        /* 3. Full-Screen Iframe Overlay */
         #iframe-overlay {
             position: fixed;
-            top: 0; left: 0; width: 90%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .iframe-container {
-            width: 70%;
-            max-width: 1000px;
-            height: 85vh;
-            background: white;
+            width: 95%; /* Wider for GitHub Page tools */
+            max-width: 1200px;
+            height: 90vh;
+            background: #ffffff;
             border-radius: 12px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
         .close-iframe {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 10px;
+            right: 15px;
             background: #f85149;
             color: white;
             border: none;
-            padding: 5px 12px;
-            border-radius: 6px;
+            padding: 8px 15px;
+            border-radius: 5px;
             cursor: pointer;
             z-index: 10001;
             font-weight: bold;
+            font-size: 0.8rem;
         }
 
         iframe {
@@ -108,35 +115,32 @@
             border: none;
         }
     </style>
-
-
+</head>
+<body>
 
     <div class="mini-hustle-card" onclick="openHustleKit()">
-        <span class="hustle-tag">Side Hustle Center</span>
+        <span class="hustle-tag">NEW</span>
         
-        <div class="slide-text active">
-            <strong>Aspiring Entrepreneur?</strong><br />
-            Find tools to launch a profitable side hustle today.
-        </div>
-        
-        <div class="slide-text">
-            <strong>Seasoned Marketer?</strong><br />
-            Everything you need to thrive in the digital economy.
+        <div class="slide-container">
+            <div class="slide-text active">
+                <strong>Side Hustle Tools:</strong> Launch your digital business today.
+            </div>
+            
+            <div class="slide-text">
+                <strong>Entrepreneur Ideas:</strong> Thrive in the digital economy.
+            </div>
+
+            <div class="slide-text">
+                <strong>One-Stop Place:</strong> Everything you need online.
+            </div>
         </div>
 
-        <div class="slide-text">
-            <strong>One-Stop Solution</strong><br />
-            Access productivity ideas and startup tools in one place.
-        </div>
-
-        <p style="font-size: 0.75rem; color: var(--text-gray); margin-top: 10px; border-top: 1px solid #30363d; padding-top: 5px;">
-            Click to explore →
-        </p>
+        <span style="color: var(--text-gray); font-size: 1rem;">›</span>
     </div>
 
-    <div id="iframe-overlay">
-        <div class="iframe-container">
-            <button class="close-iframe" onclick="closeHustleKit(event)">CLOSE</button>
+    <div id="iframe-overlay" onclick="closeHustleKit(event)">
+        <div class="iframe-container" onclick="event.stopPropagation()">
+            <button class="close-iframe" onclick="closeHustleKit(event)">CLOSE [X]</button>
             <iframe src="https://debeatzgh1.github.io/Side-hustle-starter-kit-/" title="Side Hustle Starter Kit"></iframe>
         </div>
     </div>
@@ -152,20 +156,24 @@
             slides[currentSlide].classList.add('active');
         }
 
-        setInterval(rotateSlides, 4000); // Changes every 4 seconds
+        setInterval(rotateSlides, 3500); 
 
-        // Iframe Logic
+        // Iframe Open/Close Logic
         function openHustleKit() {
             document.getElementById('iframe-overlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
         }
 
         function closeHustleKit(event) {
-            event.stopPropagation();
             document.getElementById('iframe-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scroll
         }
     </script>
+</body>
+</html>
 
-</!doctype>
+
+
 
 <style>
   /* 🌟 Fade Slide Animation */
