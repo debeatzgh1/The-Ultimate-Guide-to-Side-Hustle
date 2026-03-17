@@ -1,3 +1,5 @@
+<iframe src="https://msha.ke/debeatzgh#digimartgh-1" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+
 
 <html lang="en">
 <head>
@@ -154,6 +156,10 @@
             }
         }
     </script>
+
+    <iframe src="https://digimartgh.blogspot.com/" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+
+    
 
 </body>
 </html>
