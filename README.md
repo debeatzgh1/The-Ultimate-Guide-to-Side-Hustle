@@ -157,8 +157,7 @@
         }
     </script>
 
-    <iframe src="https://digimartgh.blogspot.com/" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
-
+    
     
 
 </body>
@@ -335,6 +334,14 @@
     </script>
 </body>
 </html>
+
+
+
+
+<iframe src="https://digimartgh.blogspot.com/" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+
+
+
 
 
 
@@ -770,6 +777,13 @@ When you send this to your client, send it as a PDF or a Read-only Notion link. 
 
 
 
+
+<iframe src="https://debeatzgh1.github.io/Side-hustle-starter-kit-/" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+
+
+
+
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -984,3 +998,8 @@ function toggleFS(){
 
 </body>
 </html>
+
+
+
+<iframe src="https://debeatzgh.wordpress.com/begin-a-side-hustle/" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+
