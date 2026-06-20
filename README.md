@@ -781,7 +781,7 @@
     <div id="iframe-overlay" onclick="closeHustleKit(event)">
         <div class="iframe-container" onclick="event.stopPropagation()">
             <button class="close-iframe" onclick="closeHustleKit(event)">CLOSE [X]</button>
-            <iframe src="https://debeatzgh1.github.io/Side-hustle-starter-kit-/" title="Side Hustle Starter Kit"></iframe>
+            <iframe src="https://msha.ke/debeatzgh#digimartgh-1" title="Side Hustle Starter Kit"></iframe>
         </div>
     </div>
 
