@@ -640,22 +640,22 @@ and AI automation platforms.
 
 <button onclick="openOverlay('https://debeatzgh1.github.io/Home-/')">
 <i class="fas fa-house"></i>
-🏡
+
 </button>
 
 <button onclick="openOverlay('https://paystack.shop/debeatzgh')">
 <i class="fas fa-store"></i>
-🛒
+
 </button>
 
 <button onclick="openOverlay('https://debeatzgh1.github.io/TechAdapt-Solutions-Strategies-for-Modern-Startups-and-Individuals/')">
 <i class="fas fa-blog"></i>
-🛠️
+
 </button>
 
 <button onclick="openOverlay('https://debeatzgh1.github.io/firebase-front-end-components/')">
 <i class="fab fa-github"></i>
-✅
+
 </button>
 
 </div>
@@ -665,7 +665,7 @@ and AI automation platforms.
 <div id="overlay">
 
 <div class="overlay-top">
-<h3>LIVE html PREVIEW VIEW</h3>
+<h3>LIVE html PREVIEWs </h3>
 
 <button class="close-btn" onclick="closeOverlay()">
 <i class="fas fa-times"></i>
