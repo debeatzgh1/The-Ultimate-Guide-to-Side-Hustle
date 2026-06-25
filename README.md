@@ -1,5 +1,4 @@
-```html
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -758,7 +757,3 @@ duration:1200
 },5000);
 
 </script>
-
-</body>
-</html>
-```
