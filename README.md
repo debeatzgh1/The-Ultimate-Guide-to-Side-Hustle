@@ -256,8 +256,8 @@ line-height:1.8;
 position:fixed;
 bottom:25px;
 right:25px;
-width:62px;
-height:62px;
+width:52px;
+height:52px;
 border-radius:50%;
 background:rgba(255,255,255,.08);
 backdrop-filter:blur(15px);
@@ -325,7 +325,7 @@ background:#fff;
 
 .iframe-shell iframe{
 width:100%;
-height:100%;
+height:120%;
 border:none;
 }
 
@@ -648,9 +648,9 @@ Home Hub
 Digital Shop
 </button>
 
-<button onclick="openOverlay('https://debeatzgh.wordpress.com/')">
+<button onclick="openOverlay('https://debeatzgh1.github.io/TechAdapt-Solutions-Strategies-for-Modern-Startups-and-Individuals/')">
 <i class="fas fa-blog"></i>
-Blog
+🛠️
 </button>
 
 <button onclick="openOverlay('https://github.com/debeatzgh1')">
